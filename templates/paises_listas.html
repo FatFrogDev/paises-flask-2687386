@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+<head>
+    <meta charset="UTF-8">
+    
+    <title>Lista de paises</title>
+</head>
+<body>
+    <h1>Lista de países de la región:</h1>
+    <!--  Si se trae un usuaio se saluda al mismo, de otro modo se refiere a él como un invitado-->
+    {% if user %}
+    <p>Hola {{user}}</p>
+    {% else %}
+    <p>Hola invitado</p>    
+    {% endif %}
+    <h2>Lista de países de la región</h2>
+    {{ largo_continentes }}
+    <div class="container">
+    <table class="table  table-hover">
+        <thead class="table-light">
+            <th scope="col">Continente</th>
+            <th scope="col">Pais</th>
+            <tbody class="table-group-divider">
+                {% for continente in continentes %}
+                        {% 
+                            for info in continente
+                        %}
+                       
+                            {% if info.continente=="América" %}
+                                <td rowspan="{{ largo_continentes[0] +1 }}">
+                                    {{  info.continente }}
+                                </td >
+                                    {% for pais in info.paises %}
+                                    <tr>
+                                        <td>
+                                            {{ info.paises  }}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                            {% endif %}
+
+                            {% if info.continente=="Europa" %}
+                                <td rowspan="{{ largo_continentes[1] +1 }}">
+                                    {{  info.continente }}
+                                </td >
+                                        {% for pais in info.paises %}
+                                        <tr>
+                                            <td>
+                                            
+                                                {{ info.paises}}
+                                            
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                            {% endif %}
+
+                            {% if info.continente=="Asia" %}
+                            <td rowspan="{{ largo_continentes[2] +1 }}">
+                                {{  info.continente }}
+                            </td >
+                                {% for i in info.paises %}
+                                    <tr>
+                                        <td>
+                                        
+                                            {{ info.paises }}
+                                        
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                        {% endif %}
+
+                        {% endfor%}
+                        
+                    </tr>
+                {% endfor %}
+                
+            </tbody>
+        </thead>
+    </table>
+</div>
+</body>
+</html>
